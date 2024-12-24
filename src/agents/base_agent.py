@@ -1,5 +1,5 @@
 from ollama import Client
-from core.utils import parse_tool_response
+from agents.agent_utils import parse_tool_response
 from core.config import tools
 from prompts.main import get_tool_call_prompt, get_agent_prompt
 from core.config import MODEL

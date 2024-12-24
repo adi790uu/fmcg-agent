@@ -14,6 +14,19 @@ tools = {
             "required": ["product_name"],
         },
     },
+    "cancel_order": {
+        "description": "Cancel an exisiting order.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "order_id": {
+                    "type": "string",
+                    "description": "Id associated with the order",
+                }
+            },
+            "required": ["product_name"],
+        },
+    },
     "get_product_stock": {
         "description": "Get stock for a specific product",
         "parameters": {

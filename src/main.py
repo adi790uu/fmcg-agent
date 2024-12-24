@@ -3,46 +3,51 @@ import json
 from agents.base_agent import Agent
 from services.product_service import ProductService
 from services.order_service import OrderService
+import asyncio
+
 
 product_service = ProductService()
 order_service = OrderService()
 
 
-def execute_tool(tool_name, arguments):
+async def execute_tool(tool_name, arguments):
     if tool_name == "get_all_products_info":
-        return product_service.get_all_products_info()
+        return await product_service.get_all_products_info()
     elif tool_name == "get_product_info":
-        return product_service.get_product_info(arguments)
+        return await product_service.get_product_info(arguments)
     elif tool_name == "get_product_stock":
-        return product_service.get_product_stock(arguments)
+        return await product_service.get_product_stock(arguments)
     elif tool_name == "add_products_to_cart":
-        return order_service.add_products_to_cart(arguments)
+        return await order_service.add_products_to_cart(arguments)
     elif tool_name == "remove_products_from_cart":
-        return order_service.remove_products_from_cart(arguments)
+        return await order_service.remove_products_from_cart(arguments)
     elif tool_name == "create_order":
-        return order_service.create_order()
+        return await order_service.create_order()
     elif tool_name == "get_current_total":
-        return order_service.get_current_total()
+        return await order_service.get_current_total()
+    elif tool_name == "cancel_order":
+        return await order_service.cancel_order(arguments)
     elif tool_name == "get_current_cart_items":
-        return order_service.get_current_cart_items()
+        return await order_service.get_current_cart_items()
     elif tool_name == "get_all_orders":
-        return order_service.get_all_orders()
+        return await order_service.get_all_orders()
     return {"error": "Unknown tool"}
 
 
-def chat_with_tools(prompt, messages: list[dict]):
+async def chat_with_tools(prompt, messages: list[dict]):
     agent = Agent(messages.copy())
     tool_calls = agent.tool_call(user_query=prompt)
     tool_results = []
     for tool_call in tool_calls:
         result = json.dumps(
-            execute_tool(tool_call["tool_name"], tool_call["arguments"])
+            await execute_tool(tool_call["tool_name"], tool_call["arguments"])
         )
         tool_results.append(result)
     return agent.generate_response(json.dumps(tool_results))
 
 
-def main():
+async def main():
+
     if "messages" not in st.session_state:
         st.session_state.messages = [
             {
@@ -62,7 +67,7 @@ def main():
         message = st.chat_message("user")
         message.write(prompt)
 
-        result = chat_with_tools(
+        result = await chat_with_tools(
             prompt=prompt,
             messages=st.session_state.messages,
         )
@@ -76,4 +81,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
