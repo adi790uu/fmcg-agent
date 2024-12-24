@@ -23,6 +23,11 @@
 8. **To run the app**:
     ``` streamlit run src/main.py```
 
+
+# Thought Process:
+
+The goal is to streamline order creation and management through an AI-based assistant, enhancing user experience by providing quick and efficient service. The assistant aims to simplify the ordering process, allowing users to easily add, remove, and manage items in their cart. By leveraging natural language processing, the assistant can understand user queries and respond appropriately, making the interaction seamless. Additionally, the system is designed to handle various user requests, such as checking product availability, processing orders, and providing order updates, all while ensuring a user-friendly interface.
+
 # Prompt Engineering Approach:
 
 
