@@ -3,7 +3,7 @@
    Before proceeding, make sure that Ollama is installed on your system. Additionally, verify that the `llama3.1` model is available and running. This is essential for the application to function correctly.
 
 2. **Clone the Repository**: 
-    ```git clone git@github.com:adi790uu/sarvam.ai-assignment.git```
+    ```git clone git@github.com:adi790uu/fmcg-agent.git```
 
 3. **Navigate to the project directory**:
     ```cd sarvam.ai-assignment ```
